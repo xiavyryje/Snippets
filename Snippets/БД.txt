@@ -1,0 +1,4 @@
+Если SSMS 
+optionsBuilder.UseNpgsql("Server=172.16.15.172;Database=user06;UID=user06;PWD=45358;TrustServerCertificate=yes");
+optionsBuilder.UseSqlServer("Server=...;Database=...;User Id=...;Password=...;TrustServerCertificate=True;");
+Microsoft.EntityFrameworkCore.SqlServer - пакет
