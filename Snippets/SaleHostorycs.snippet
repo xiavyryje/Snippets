@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippet Format="1.0.0">
+  <Header>
+    <Title>EF Core Product Model</Title>
+    <Shortcut>salehistorycs</Shortcut>
+    <Description>Модель Product для EF Core с навигационными свойствами</Description>
+    <Author>mainwindowcs</Author>
+    <Language>CSharp</Language>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Code Language="csharp"><![CDATA[
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using Core;
+using Core.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace CompanySystem
+{
+    /// <summary>
+    /// Логика взаимодействия для SaleHistoryWindow.xaml
+    /// </summary>
+    public partial class SaleHistoryWindow : Window
+    {
+        private int _selectedId;
+        private string _title;
+        public SaleHistoryWindow(int partnerId)
+        {
+            InitializeComponent();
+            _selectedId = partnerId;
+
+            try 
+            { 
+                using(var context = new Context())
+                {
+                    var partnerProductList = context.PartnersProducts.Include(p => p.Partner)
+                        .Include(p=> p.Product)
+                        .Where(p=>p.PartnerId == _selectedId)
+                        .OrderBy(p=>p.Date)
+                        .ToList();
+                    productList.ItemsSource = partnerProductList;
+                }
+            }
+            catch 
+            { 
+            }
+        }
+    }
+}
+]]></Code>
+  </Snippet>
+</CodeSnippet>

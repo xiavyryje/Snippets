@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippet Format="1.0.0">
+  <Header>
+    <Title>EF Core Product Model</Title>
+    <Shortcut>comands</Shortcut>
+    <Description>Модель Product для EF Core с навигационными свойствами</Description>
+    <Author>mainwindowcs</Author>
+    <Language>CSharp</Language>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Code Language="csharp"><![CDATA[
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+dotnet tool install --global dotnet-ef
+]]></Code>
+  </Snippet>
+</CodeSnippet>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippet Format="1.0.0">
+  <Header>
+    <Title>EF Core Product Model</Title>
+    <Shortcut>productmodel</Shortcut>
+    <Description>Модель Product для EF Core с навигационными свойствами</Description>
+    <Author>Вика</Author>
+    <Language>CSharp</Language>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Code Language="csharp"><![CDATA[
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+namespace Core.Models
+{
+    public class Product
+    {
+        public int Id { get; set; }
+        public int ProductTypeId { get; set; }
+        public int MaterialTypeId { get; set; }
+        public string Name { get; set; }
+        public long Num { get; set; }
+        [Precision(2)]
+        public double Price { get; set; }
+
+        public virtual ProductType ProductType { get; set; }
+        public virtual MaterialType MaterialType { get; set; }
+        public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
+    }
+}
+    ]]></Code>
+  </Snippet>
+</CodeSnippet>

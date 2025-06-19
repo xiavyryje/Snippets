@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippet Format="1.0.0">
+  <Header>
+    <Title>EF Core Product Model</Title>
+    <Shortcut>addwindowcs</Shortcut>
+    <Description>Модель Product для EF Core с навигационными свойствами</Description>
+    <Author>mainwindowcs</Author>
+    <Language>CSharp</Language>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Code Language="csharp"><![CDATA[
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using Core;
+using Core.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace CompanySystem
+{
+    /// <summary>
+    /// Логика взаимодействия для AddPartnerWindow.xaml
+    /// </summary>
+    public partial class AddPartnerWindow : Window
+    {
+        public AddPartnerWindow()
+        {
+            InitializeComponent();
+
+            try
+            {
+                using(var context = new Context())
+                {
+                    var partnerTypes = context.PartnerTypes.ToList();
+                    TypeInput.ItemsSource = partnerTypes;
+                    TypeInput.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не удалось загрузить список типов партнеров: {ex}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        public void AddButton_Click (object sender, RoutedEventArgs e)
+        {
+            string name = Nameinput.Text;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Введите название компании", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            int ratio;
+            try
+            {
+                ratio = int.Parse(Ratioinput.Text);
+                if (ratio < 0)
+                {
+                    MessageBox.Show("Рейтинг должен быть положительным", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Рейтинг должен быть числом", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            int type = (int)TypeInput.SelectedValue;
+
+            string address = Addressinput.Text;
+            if (string.IsNullOrWhiteSpace(address))
+            {
+                MessageBox.Show("Введите адрес компании", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            string director = DirFullNameinput.Text;
+            string[] nameParts = director.Split(' ');
+            if (nameParts.Length > 3 || nameParts.Length < 2)
+            {
+                MessageBox.Show("Введите корректно ФИО", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            string phone = Phoneinput.Text;
+            if (string.IsNullOrWhiteSpace(phone) || phone.Length != 13)
+            {
+                MessageBox.Show("Введите корректно Телефон (формат 999 111 22 33)", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            string inn = Inninput.Text;
+            if (inn.Length != 10)
+            {
+                MessageBox.Show("Введите корректно ИНН", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            string email = Emailinput.Text;
+            if (!email.Contains('@') || !email.Contains('.'))
+            {
+                MessageBox.Show("Введите корректно email", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
+                using (var context = new Context())
+                {
+                    Partner partner = new Partner()
+                    {
+                        Name = name,
+                        Phone = phone,
+                        Email = email,
+                        Ratio = ratio,
+                        Inn = inn,
+                        Address = address,
+                        PartnerTypeId = type,
+                        DirFirstName = nameParts[1],
+                        DirLastName = nameParts[0],
+                        DirMiddleName = nameParts[2],
+                    };
+                    context.Add(partner);
+                    context.SaveChanges();
+                    MessageBox.Show("Партнер успешно добавлен", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не удалось добавить парнера: {ex}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+    }
+}
+]]></Code>
+  </Snippet>
+</CodeSnippet>

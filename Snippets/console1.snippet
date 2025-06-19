@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippet Format="1.0.0">
+  <Header>
+    <Title>EF Core Product Model</Title>
+    <Shortcut>console1</Shortcut>
+    <Description>Модель Product для EF Core с навигационными свойствами</Description>
+    <Author>mainwindowcs</Author>
+    <Language>CSharp</Language>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Code Language="csharp"><![CDATA[
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Core;
+using Core.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace ConsoleApp
+{
+    public class MaterialCalculator
+    {
+        private readonly Context _context;
+
+        public MaterialCalculator(Context context)
+        {
+            _context = context;
+        }
+        public int CalculateRequiredMaterial(int materialId, int productId, int productCount, double param1, double param2)
+        {
+            if (productCount < 0 || param1 < 0 || param2 < 0)
+                return -1;
+            var materialType = _context.MaterialTypes.FirstOrDefault(p => p.Id == materialId);
+            if (materialType == null)
+            {
+                Console.WriteLine($"Тип материала с ID={materialId} не найден в базе!");
+                return -1;
+            }
+            var productType = _context.ProductTypes.FirstOrDefault(p => p.Id == productId);
+            if (productType == null)
+            {
+                Console.WriteLine($"Тип продукции с ID={productId} не найден в базе!");
+                return -1;
+            }
+
+            double ratio = productType.Ratio;
+            double deffect = materialType.Deffect;
+
+            double materialAmountPerUnit = param1 * param2 * ratio;
+            double totalMaterial = materialAmountPerUnit * productCount;
+            double totalWithDeffect = totalMaterial * (1 + deffect / 100.0);
+
+            return (int)Math.Ceiling(totalWithDeffect);
+        }
+    }
+}
+]]></Code>
+  </Snippet>
+</CodeSnippet>

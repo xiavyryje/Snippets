@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippet Format="1.0.0">
+  <Header>
+    <Title>EF Core Product Model</Title>
+    <Shortcut>addwindowcs</Shortcut>
+    <Description>Модель Product для EF Core с навигационными свойствами</Description>
+    <Author>mainwindowcs</Author>
+    <Language>CSharp</Language>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Code Language="csharp"><![CDATA[
+<Window x:Class="CompanySystem.AddPartnerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CompanySystem"
+        mc:Ignorable="d"
+        Title="AddPartnerWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Добавление партнера" Foreground="#67BA80"
+               FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5">
+            <TextBlock Text="Наименование" Margin="5" FontSize="14" VerticalAlignment="Center"/>
+            <TextBox x:Name="Nameinput" Width="500" Height="25" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="5">
+            <TextBlock Text="Тип компании" Margin="5" FontSize="14" VerticalAlignment="Center"/>
+            <ComboBox x:Name="TypeInput" Width="100" Height="25" VerticalAlignment="Center"
+                  DisplayMemberPath="Name" SelectedValuePath="Id"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="5">
+            <TextBlock Text="Рейтинг" Margin="10" FontSize="14" VerticalAlignment="Center"/>
+            <TextBox x:Name="Ratioinput" Width="500" Height="25" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="5">
+            <TextBlock Text="Юридический адрес" Margin="10" FontSize="14" VerticalAlignment="Center"/>
+            <TextBox x:Name="Addressinput" Width="500" Height="25" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="5" Margin="5">
+            <TextBlock Text="ФИО директора" Margin="10" FontSize="14" VerticalAlignment="Center"/>
+            <TextBox x:Name="DirFullNameinput" Width="500" Height="25" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="6" Margin="5">
+            <TextBlock Text="Инн" Margin="10" FontSize="14" VerticalAlignment="Center"/>
+            <TextBox x:Name="Inninput" Width="500" Height="25" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="7" Margin="5">
+            <TextBlock Text="Телефон" Margin="10" FontSize="14" VerticalAlignment="Center"/>
+            <TextBox x:Name="Phoneinput" Width="500" Height="25" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="8" Margin="5">
+            <TextBlock Text="Email" Margin="10" FontSize="14" VerticalAlignment="Center"/>
+            <TextBox x:Name="Emailinput" Width="500" Height="25" VerticalAlignment="Center"/>
+        </StackPanel>
+        <Button Content="Добавить" Margin="10" Width="140" Grid.Row="9" Click="AddButton_Click"
+            Height="35" Background="#67BA80" BorderThickness="0" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/> 
+   
+    </Grid>
+</Window>
+]]></Code>
+  </Snippet>
+</CodeSnippet>
